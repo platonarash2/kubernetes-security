@@ -1,0 +1,13 @@
+stages:
+  - stage: Validate
+    displayName: Validate repository
+    jobs:
+      - job: Validate
+        steps:
+          - checkout: self
+          - powershell: |
+              kubectl version --client
+              helm version
+              kind version
+              docker version
+            displayName: Check local tools

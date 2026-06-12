@@ -1,0 +1,2 @@
+helm upgrade --install cilium cilium/cilium --namespace kube-system --set ipam.mode=kubernetes  --set kubeProxyReplacement=false --wait 
+

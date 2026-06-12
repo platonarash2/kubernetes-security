@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: seccomp-guidance
+  namespace: payments
+data:
+  README.md: |
+    Lab uses seccomp RuntimeDefault.
+    Custom Localhost profiles require JSON files on each kind node.

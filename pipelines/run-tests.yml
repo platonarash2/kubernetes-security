@@ -1,0 +1,11 @@
+stages:
+  - stage: RunTests
+    displayName: Run runtime security tests
+    dependsOn: ApplyLab
+    jobs:
+      - job: RunTests
+        steps:
+          - checkout: self
+          - powershell: |
+              .\scripts\windows\04-run-tests.ps1
+            displayName: Run tests

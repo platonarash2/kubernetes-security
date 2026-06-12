@@ -1,0 +1,29 @@
+﻿apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: monitor-serviceaccount-token-read
+  namespace: payments
+spec:
+  selector:
+    matchLabels:
+      security-profile: web-api
+  file:
+    matchPaths:
+      - path: /var/run/secrets/kubernetes.io/serviceaccount/token
+      - path: /run/secrets/kubernetes.io/serviceaccount/token
+  action: Audit
+---
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: monitor-serviceaccount-token-read
+  namespace: attacker
+spec:
+  selector:
+    matchLabels:
+      security-profile: attacker
+  file:
+    matchPaths:
+      - path: /var/run/secrets/kubernetes.io/serviceaccount/token
+      - path: /run/secrets/kubernetes.io/serviceaccount/token
+  action: Audit

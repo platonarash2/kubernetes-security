@@ -1,0 +1,11 @@
+stages:
+  - stage: ApplyLab
+    displayName: Apply lab workloads and policies
+    dependsOn: InstallPlatform
+    jobs:
+      - job: ApplyLab
+        steps:
+          - checkout: self
+          - powershell: |
+              .\scripts\windows\03-apply-lab.ps1
+            displayName: Apply lab

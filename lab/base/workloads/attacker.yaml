@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: attacker
+  namespace: attacker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: attacker
+  template:
+    metadata:
+      labels:
+        app: attacker
+        security-profile: attacker
+        platform.example.com/allow-service-account-token: "true"
+    spec:
+      serviceAccountName: attacker-sa
+      automountServiceAccountToken: true
+      containers:
+        - name: attacker
+          image: nicolaka/netshoot:latest
+          command:
+            - sh
+            - -c
+            - |
+              while true; do
+                sleep 3600
+              done
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault

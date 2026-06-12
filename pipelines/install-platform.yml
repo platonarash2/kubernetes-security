@@ -1,0 +1,11 @@
+stages:
+  - stage: InstallPlatform
+    displayName: Install Cilium, Kyverno, KubeArmor and Tetragon
+    dependsOn: CreateKind
+    jobs:
+      - job: InstallPlatform
+        steps:
+          - checkout: self
+          - powershell: |
+              .\scripts\windows\02-install-platform.ps1
+            displayName: Install platform stack

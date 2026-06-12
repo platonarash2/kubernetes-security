@@ -1,0 +1,11 @@
+stages:
+  - stage: CreateKind
+    displayName: Create kind cluster with Cilium-ready config
+    dependsOn: Validate
+    jobs:
+      - job: CreateKind
+        steps:
+          - checkout: self
+          - powershell: |
+              .\scripts\windows\01-create-kind-cluster.ps1
+            displayName: Create kind cluster

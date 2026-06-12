@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - namespaces.yaml
+  - platform-namespaces.yaml
+  - serviceaccounts.yaml
+  - workloads/payments-api.yaml
+  - workloads/attacker.yaml
+  - workloads/client.yaml
+  - policies/kyverno-require-automount-false.yaml
+  - policies/kyverno-secure-baseline.yaml
+  - policies/kubearmor-payments-runtime.yaml
+  - policies/kubearmor-token-access.yaml
+  - policies/cilium-default-deny-payments.yaml
+  - policies/cilium-allow-payments-api.yaml
+  - policies/tetragon-shell-exec.yaml
+  - policies/tetragon-token-access.yaml
+  - seccomp/seccomp-guidance.yaml
+  - apparmor/apparmor-guidance.yaml

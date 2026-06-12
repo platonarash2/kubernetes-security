@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: apparmor-guidance
+  namespace: payments
+data:
+  README.md: |
+    AppArmor support depends on the kind node image and host kernel.
+    Use RuntimeDefault where supported; Localhost profiles require loading the profile into each kind node.

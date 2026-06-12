@@ -1,0 +1,27 @@
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: payments-runtime-policy
+  namespace: payments
+spec:
+  selector:
+    matchLabels:
+      security-profile: web-api
+  process:
+    matchPaths:
+      - path: /bin/sh
+      - path: /bin/bash
+      - path: /usr/bin/wget
+      - path: /usr/bin/curl
+      - path: /bin/nc
+      - path: /usr/bin/nc
+  file:
+    matchPaths:
+      - path: /etc/shadow
+      - path: /etc/sudoers
+  capabilities:
+    matchCapabilities:
+      - capability: sys_admin
+      - capability: sys_ptrace
+      - capability: net_admin
+  action: Audit

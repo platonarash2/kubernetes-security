@@ -1,0 +1,19 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pr:
+  branches:
+    include:
+      - main
+
+pool:
+  name: SelfHosted-Windows-Kind
+
+stages:
+  - template: pipelines/validate.yml
+  - template: pipelines/create-kind.yml
+  - template: pipelines/install-platform.yml
+  - template: pipelines/apply-lab.yml
+  - template: pipelines/run-tests.yml

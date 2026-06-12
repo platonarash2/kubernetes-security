@@ -1,0 +1,21 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: lab-require-automount-service-account-token-false
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+    - name: require-automount-false
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              namespaces:
+                - payments
+      validate:
+        message: "Application pods must set automountServiceAccountToken: false."
+        pattern:
+          spec:
+            automountServiceAccountToken: false

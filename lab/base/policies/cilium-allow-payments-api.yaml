@@ -1,0 +1,48 @@
+﻿# apiVersion: cilium.io/v2
+# kind: CiliumNetworkPolicy
+# metadata:
+  # name: allow-payments-client-to-api
+  # namespace: payments
+# spec:
+  # endpointSelector:
+    # matchLabels:
+      # app: payments-api
+  # ingress:
+    # - fromEndpoints:
+        # - matchLabels:
+            # app: payments-client
+      # toPorts:
+        # - ports:
+            # - port: "8080"
+              # protocol: TCP
+# ---
+# apiVersion: cilium.io/v2
+# kind: CiliumNetworkPolicy
+# metadata:
+  # name: allow-payments-client-dns-and-api-egress
+  # namespace: payments
+# spec:
+  # endpointSelector:
+    # matchLabels:
+      # app: payments-client
+  # egress:
+    # - toEndpoints:
+        # - matchLabels:
+            # k8s:io.kubernetes.pod.namespace: kube-system
+            # k8s:k8s-app: kube-dns
+      # toPorts:
+        # - ports:
+            # - port: "53"
+              # protocol: UDP
+            # - port: "53"
+              # protocol: TCP
+        # rules:
+          # dns:
+            # - matchPattern: "*"
+    # - toEndpoints:
+        # - matchLabels:
+            # app: payments-api
+      # toPorts:
+        # - ports:
+            # - port: "8080"
+              # protocol: TCP

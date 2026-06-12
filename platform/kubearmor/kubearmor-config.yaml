@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubearmor-lab-note
+  namespace: kubearmor
+data:
+  note: "KubeArmor operator installed. Add version-specific KubeArmorConfig here if required by your chart/operator version."

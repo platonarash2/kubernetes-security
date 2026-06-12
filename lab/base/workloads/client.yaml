@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payments-client
+  namespace: payments
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payments-client
+  template:
+    metadata:
+      labels:
+        app: payments-client
+        security-profile: payments-client
+    spec:
+      serviceAccountName: payments-client-sa
+      automountServiceAccountToken: false
+      containers:
+        - name: client
+          image: curlimages/curl:8.10.1
+          command: ["sh", "-c", "while true; do sleep 3600; done"]
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 10001
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault

@@ -1,0 +1,10 @@
+$ErrorActionPreference = "Stop"
+
+kind delete cluster --name runtime-security-lab
+kind create cluster --config kind/kind-cilium.yaml
+
+kubectl cluster-info --context kind-runtime-security-lab
+kubectl get nodes -o wide
+
+
+
