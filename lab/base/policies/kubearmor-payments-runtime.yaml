@@ -10,6 +10,7 @@ spec:
   process:
     matchPaths:
       - path: /bin/sh
+      - path: /bin/busybox
       - path: /bin/bash
       - path: /usr/bin/wget
       - path: /usr/bin/curl
@@ -24,4 +25,4 @@ spec:
       - capability: sys_admin
       - capability: sys_ptrace
       - capability: net_admin
-  action: Audit
+  action: Block

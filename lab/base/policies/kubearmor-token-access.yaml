@@ -26,4 +26,4 @@ spec:
     matchPaths:
       - path: /var/run/secrets/kubernetes.io/serviceaccount/token
       - path: /run/secrets/kubernetes.io/serviceaccount/token
-  action: Audit
+  action: Block

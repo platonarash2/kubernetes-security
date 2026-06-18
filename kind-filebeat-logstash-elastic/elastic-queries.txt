@@ -1,0 +1,212 @@
+Nu när du har både Tetragon och KubeArmor i samma index kan du börja göra riktiga incidentutredningar.
+
+Jag skulle skapa följande sparade ES|QL-frågor.
+
+# 1. Komplett tidslinje för attacker-podden
+
+Det här är den viktigaste.
+
+```esql 
+
+
+*** Tetragon loggar ***
+
+FROM runtime-security-*
+| WHERE @timestamp >= NOW() - 30 MINUTES
+| WHERE
+    kubernetes.pod.name LIKE "*attacker*" OR 
+    kubernetes.container.name LIKE "*attacker*" OR
+    runtime_kubernetes.pod.name LIKE "*attacker*" OR
+    message LIKE "*attacker*"
+| SORT @timestamp ASC
+| KEEP
+    @timestamp,
+    event.source,
+    event.type,
+    event.action,
+    kubernetes.namespace,
+    kubernetes.pod.name,
+    runtime_kubernetes.namespace,
+    runtime_kubernetes.pod.name,
+    process.executable,
+    process.command_line,
+    file.path,
+    event.type,
+    event.source,
+    message
+| LIMIT 100 
+| SORT @timestamp DESC
+
+```
+
+Du får:
+
+```text
+12:00 shell startad
+12:01 token läst
+12:02 curl mot payments-api
+12:03 policy träffad
+```
+
+---
+
+# 2. ServiceAccount-token access
+
+Det här är den viktigaste detektionen i labben.
+
+```esql
+FROM runtime-security-*
+| WHERE @timestamp >= NOW() - 30 MINUTES
+| WHERE
+    file.path == "/var/run/secrets/kubernetes.io/serviceaccount/token"
+    OR message LIKE "*serviceaccount/token*"
+| SORT @timestamp DESC
+| KEEP
+    @timestamp,
+    event.source,
+    event.type,
+    event.action,
+    process.executable,
+    runtime_kubernetes.namespace,
+    runtime_kubernetes.pod.name,
+    file.path,
+    policy.name
+```
+
+---
+
+# 3. Alla blockerade aktiviteter
+
+```esql
+FROM runtime-security-*
+| WHERE @timestamp >= NOW() - 30 MINUTES
+| WHERE
+    event.action == "Block"
+    OR event.action == "block"
+    OR message LIKE "*Block*"
+| SORT @timestamp DESC
+| KEEP
+    @timestamp,
+    event.source,
+    policy.name,
+    process.executable,
+    file.path,
+    runtime_kubernetes.namespace,
+    runtime_kubernetes.pod.name,
+    message
+```
+
+---
+
+# 4. Shells i containrar
+
+Normala applikationer ska sällan starta shell.
+
+```esql
+FROM runtime-security-*
+| WHERE @timestamp >= NOW() - 30 MINUTES
+| WHERE
+    process.executable LIKE "*sh"
+    OR process.executable LIKE "*bash"
+    OR process.executable LIKE "*ash"
+| SORT @timestamp DESC
+| KEEP
+    @timestamp,
+    event.source,
+    runtime_kubernetes.namespace,
+    runtime_kubernetes.pod.name,
+    process.executable,
+    process.command_line
+```
+
+---
+
+# 5. Rekonstruktion av attackkedja
+
+När du kör:
+
+```bash
+kubectl -n attacker exec deploy/attacker -- sh
+
+kubectl -n attacker exec deploy/attacker -- \
+cat /var/run/secrets/kubernetes.io/serviceaccount/token
+
+kubectl -n attacker exec deploy/attacker -- \
+curl http://payments-api:8080
+```
+
+kör:
+
+```esql
+FROM runtime-security-*
+| WHERE @timestamp >= NOW() - 30 MINUTES
+| WHERE runtime_kubernetes.pod.name == "attacker"
+| SORT @timestamp ASC
+| KEEP
+    @timestamp,
+    event.source,
+    event.type,
+    event.action,
+    process.executable,
+    file.path,
+    policy.name,
+    message
+```
+
+Det blir i princip din incidentrapport.
+
+---
+
+# 6. Vilka policies triggas mest?
+
+Bra dashboard-fråga.
+
+```esql
+FROM runtime-security-*
+| WHERE @timestamp >= NOW() - 24 HOURS
+| WHERE policy.name IS NOT NULL
+| STATS hits = COUNT(*) BY policy.name
+| SORT hits DESC
+```
+
+---
+
+# 7. Vilka pods bryter mot säkerhetspolicys?
+
+```esql
+FROM runtime-security-*
+| WHERE @timestamp >= NOW() - 24 HOURS
+| WHERE event.action == "Block"
+| STATS violations = COUNT(*) BY runtime_kubernetes.namespace, runtime_kubernetes.pod.name
+| SORT violations DESC
+```
+
+---
+
+# 8. IOC-query (Indicators of Compromise)
+
+Det här är den query jag skulle använda först i en verklig incident.
+
+```esql
+FROM runtime-security-*
+| WHERE @timestamp >= NOW() - 1 HOURS
+| WHERE
+    process.executable LIKE "*sh"
+    OR process.executable LIKE "*bash"
+    OR process.executable LIKE "*curl*"
+    OR process.executable LIKE "*wget*"
+    OR file.path == "/var/run/secrets/kubernetes.io/serviceaccount/token"
+    OR event.action == "Block"
+| SORT @timestamp DESC
+| KEEP
+    @timestamp,
+    event.source,
+    event.action,
+    runtime_kubernetes.namespace,
+    runtime_kubernetes.pod.name,
+    process.executable,
+    file.path,
+    policy.name
+```
+
+Den queryn fångar ungefär 80 % av de aktiviteter du demonstrerar i din attacker-pod-labb.

@@ -1,0 +1,158 @@
+{
+    "Timestamp": 1781783286,
+    "UpdatedTime": "2026-06-18T11:48:06.782649Z",
+    "ClusterName": "default",
+    "HostName": "runtime-security-lab-worker",
+    "NamespaceName": "payments",
+    "Owner": {
+        "Ref": "Deployment",
+        "Name": "payments-api",
+        "Namespace": "payments"
+    },
+    "PodName": "payments-api-559db6df75-plb6h",
+    "Labels": "app=payments-api,security-profile=web-api",
+    "ContainerID": "f228bba4488a97a7d253ca0142d4ad06b5bf67001f6ab7c32a7726ad6a75ac5a",
+    "ContainerName": "app",
+    "ContainerImage": "docker.io/nginxinc/nginx-unprivileged:stable-alpine@sha256:37f356a5eba5d187365b4f59cd6cc29f1f922ad18146d554b576a80983377e6a",
+    "HostPPID": 1023897,
+    "HostPID": 1023906,
+    "PPID": 465487,
+    "PID": 299,
+    "UID": 101,
+    "ProcessName": "/bin/busybox",
+    "PolicyName": "payments-runtime-policy",
+    "Type": "MatchedPolicy",
+    "Operation": "Process",
+    "Resource": "/bin/sh -c ls -l /var/run/secrets/kubernetes.io/serviceaccount/token || true",
+    "Data": "syscall=SYS_EXECVE",
+    "EventData": {
+        "Syscall": "SYS_EXECVE"
+    },
+    "Enforcer": "eBPF Monitor",
+    "Action": "Audit (Block)",
+    "Result": "Passed",
+    "Cwd": "/",
+    "ExecEvent": {
+        "ExecID": "4397644777496489",
+        "ExecutableName": "sh"
+    }
+}
+{
+    "Timestamp": 1781783286,
+    "UpdatedTime": "2026-06-18T11:48:06.787615Z",
+    "ClusterName": "default",
+    "HostName": "runtime-security-lab-worker",
+    "NamespaceName": "payments",
+    "Owner": {
+        "Ref": "Deployment",
+        "Name": "payments-api",
+        "Namespace": "payments"
+    },
+    "PodName": "payments-api-559db6df75-plb6h",
+    "Labels": "app=payments-api,security-profile=web-api",
+    "ContainerID": "f228bba4488a97a7d253ca0142d4ad06b5bf67001f6ab7c32a7726ad6a75ac5a",
+    "ContainerName": "app",
+    "ContainerImage": "docker.io/nginxinc/nginx-unprivileged:stable-alpine@sha256:37f356a5eba5d187365b4f59cd6cc29f1f922ad18146d554b576a80983377e6a",
+    "HostPPID": 1023906,
+    "HostPID": 1023913,
+    "PPID": 299,
+    "PID": 305,
+    "UID": 101,
+    "ParentProcessName": "/bin/busybox",
+    "ProcessName": "/bin/busybox",
+    "PolicyName": "payments-runtime-policy",
+    "Type": "MatchedPolicy",
+    "Source": "/bin/busybox",
+    "Operation": "Process",
+    "Resource": "/bin/ls -l /var/run/secrets/kubernetes.io/serviceaccount/token",
+    "Data": "syscall=SYS_EXECVE",
+    "EventData": {
+        "Syscall": "SYS_EXECVE"
+    },
+    "Enforcer": "eBPF Monitor",
+    "Action": "Audit (Block)",
+    "Result": "Passed",
+    "Cwd": "/",
+    "ExecEvent": {
+        "ExecID": "4397674842267561",
+        "ExecutableName": "ls"
+    }
+}
+{
+    "Timestamp": 1781783287,
+    "UpdatedTime": "2026-06-18T11:48:07.790741Z",
+    "ClusterName": "default",
+    "HostName": "runtime-security-lab-worker",
+    "NamespaceName": "payments",
+    "Owner": {
+        "Ref": "Deployment",
+        "Name": "payments-api",
+        "Namespace": "payments"
+    },
+    "PodName": "payments-api-559db6df75-plb6h",
+    "Labels": "app=payments-api,security-profile=web-api",
+    "ContainerID": "f228bba4488a97a7d253ca0142d4ad06b5bf67001f6ab7c32a7726ad6a75ac5a",
+    "ContainerName": "app",
+    "ContainerImage": "docker.io/nginxinc/nginx-unprivileged:stable-alpine@sha256:37f356a5eba5d187365b4f59cd6cc29f1f922ad18146d554b576a80983377e6a",
+    "HostPPID": 1023940,
+    "HostPID": 1023953,
+    "PPID": 465505,
+    "PID": 306,
+    "UID": 101,
+    "ProcessName": "/bin/busybox",
+    "PolicyName": "payments-runtime-policy",
+    "Type": "MatchedPolicy",
+    "Operation": "Process",
+    "Resource": "/bin/sh -c /bin/sh -c echo shell-test",
+    "Data": "syscall=SYS_EXECVE",
+    "EventData": {
+        "Syscall": "SYS_EXECVE"
+    },
+    "Enforcer": "eBPF Monitor",
+    "Action": "Audit (Block)",
+    "Result": "Passed",
+    "Cwd": "/",
+    "ExecEvent": {
+        "ExecID": "4397847757717468",
+        "ExecutableName": "sh"
+    }
+}
+{
+    "Timestamp": 1781783287,
+    "UpdatedTime": "2026-06-18T11:48:07.874635Z",
+    "ClusterName": "default",
+    "HostName": "runtime-security-lab-worker",
+    "NamespaceName": "payments",
+    "Owner": {
+        "Ref": "Deployment",
+        "Name": "payments-api",
+        "Namespace": "payments"
+    },
+    "PodName": "payments-api-559db6df75-plb6h",
+    "Labels": "app=payments-api,security-profile=web-api",
+    "ContainerID": "f228bba4488a97a7d253ca0142d4ad06b5bf67001f6ab7c32a7726ad6a75ac5a",
+    "ContainerName": "app",
+    "ContainerImage": "docker.io/nginxinc/nginx-unprivileged:stable-alpine@sha256:37f356a5eba5d187365b4f59cd6cc29f1f922ad18146d554b576a80983377e6a",
+    "HostPPID": 250862,
+    "HostPID": 1023953,
+    "PPID": 2289,
+    "PID": 306,
+    "UID": 101,
+    "ProcessName": "/bin/busybox",
+    "PolicyName": "payments-runtime-policy",
+    "Type": "MatchedPolicy",
+    "Operation": "Process",
+    "Resource": "/bin/sh -c echo",
+    "Data": "syscall=SYS_EXECVE",
+    "EventData": {
+        "Syscall": "SYS_EXECVE"
+    },
+    "Enforcer": "eBPF Monitor",
+    "Action": "Audit (Block)",
+    "Result": "Passed",
+    "Cwd": "/",
+    "ExecEvent": {
+        "ExecID": "4397847757717468",
+        "ExecutableName": "sh"
+    }
+}

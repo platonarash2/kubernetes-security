@@ -5,6 +5,8 @@ resources:
   - namespaces.yaml
   - platform-namespaces.yaml
   - serviceaccounts.yaml
+  - kubearmor-config.yaml
+  #- kubearmor-exporter.yaml
   - workloads/payments-api.yaml
   - workloads/attacker.yaml
   - workloads/client.yaml
@@ -12,9 +14,11 @@ resources:
   - policies/kyverno-secure-baseline.yaml
   - policies/kubearmor-payments-runtime.yaml
   - policies/kubearmor-token-access.yaml
+  - policies/kubearmor-attacker.yaml
   - policies/cilium-default-deny-payments.yaml
   - policies/cilium-allow-payments-api.yaml
   - policies/tetragon-shell-exec.yaml
   - policies/tetragon-token-access.yaml
   - seccomp/seccomp-guidance.yaml
   - apparmor/apparmor-guidance.yaml
+ 

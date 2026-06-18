@@ -1,0 +1,291 @@
+{
+    "Timestamp": 1781783485,
+    "UpdatedTime": "2026-06-18T11:51:25.142775Z",
+    "ClusterName": "default",
+    "HostName": "runtime-security-lab-worker",
+    "NamespaceName": "elastic-system",
+    "Owner": {
+        "Ref": "StatefulSet",
+        "Name": "quickstart-es-default",
+        "Namespace": "elastic-system"
+    },
+    "PodName": "quickstart-es-default-0",
+    "Labels": "elasticsearch.k8s.elastic.co/node-data_content=true,elasticsearch.k8s.elastic.co/node-ml=true,elasticsearch.k8s.elastic.co/cluster-name=quickstart,elasticsearch.k8s.elastic.co/http-scheme=https,common.k8s.elastic.co/type=elasticsearch,elasticsearch.k8s.elastic.co/node-data_warm=true,elasticsearch.k8s.elastic.co/node-remote_cluster_client=true,elasticsearch.k8s.elastic.co/statefulset-name=quickstart-es-default,apps.kubernetes.io/pod-index=0,elasticsearch.k8s.elastic.co/node-data_cold=true,elasticsearch.k8s.elastic.co/node-data=true,elasticsearch.k8s.elastic.co/node-data_hot=true,elasticsearch.k8s.elastic.co/node-voting_only=false,elasticsearch.k8s.elastic.co/node-master=true,elasticsearch.k8s.elastic.co/node-ingest=true,elasticsearch.k8s.elastic.co/version=8.17.0,statefulset.kubernetes.io/pod-name=quickstart-es-default-0,elasticsearch.k8s.elastic.co/node-transform=true,elasticsearch.k8s.elastic.co/node-data_frozen=true",
+    "ContainerID": "83fae14114e13c0c9cb0b450250122f2cda0004b8365b19e7db76d629d7659b0",
+    "ContainerName": "elasticsearch",
+    "ContainerImage": "docker.elastic.co/elasticsearch/elasticsearch:8.17.0@sha256:2f602552550869fb29b6fd5848c5118d3ef3a2e1d5d45802e3ab9088cb2de8e2",
+    "ParentProcessName": "/usr/bin/bash",
+    "ProcessName": "/usr/bin/nc.openbsd",
+    "HostPPID": 1026220,
+    "HostPID": 1026226,
+    "PPID": 97070,
+    "PID": 97076,
+    "UID": 1000,
+    "Type": "ContainerLog",
+    "Source": "/usr/bin/nc.openbsd -z -v -w5 127.0.0.1 8080",
+    "Operation": "File",
+    "Resource": "/etc/nsswitch.conf",
+    "Data": "syscall=SYS_OPENAT fd=-100 flags=O_RDONLY|O_CLOEXEC",
+    "EventData": {
+        "Fd": "-100",
+        "Flags": "O_RDONLY|O_CLOEXEC",
+        "Syscall": "SYS_OPENAT"
+    },
+    "Result": "Passed",
+    "Cwd": "/usr/share/elasticsearch/",
+    "ExecEvent": {
+        "ExecID": "4407607329532159",
+        "ExecutableName": "nc"
+    }
+}
+{
+    "Timestamp": 1781783485,
+    "UpdatedTime": "2026-06-18T11:51:25.142779Z",
+    "ClusterName": "default",
+    "HostName": "runtime-security-lab-worker",
+    "NamespaceName": "elastic-system",
+    "Owner": {
+        "Ref": "StatefulSet",
+        "Name": "quickstart-es-default",
+        "Namespace": "elastic-system"
+    },
+    "PodName": "quickstart-es-default-0",
+    "Labels": "elasticsearch.k8s.elastic.co/node-data_content=true,elasticsearch.k8s.elastic.co/node-ml=true,elasticsearch.k8s.elastic.co/cluster-name=quickstart,elasticsearch.k8s.elastic.co/http-scheme=https,common.k8s.elastic.co/type=elasticsearch,elasticsearch.k8s.elastic.co/node-data_warm=true,elasticsearch.k8s.elastic.co/node-remote_cluster_client=true,elasticsearch.k8s.elastic.co/statefulset-name=quickstart-es-default,apps.kubernetes.io/pod-index=0,elasticsearch.k8s.elastic.co/node-data_cold=true,elasticsearch.k8s.elastic.co/node-data=true,elasticsearch.k8s.elastic.co/node-data_hot=true,elasticsearch.k8s.elastic.co/node-voting_only=false,elasticsearch.k8s.elastic.co/node-master=true,elasticsearch.k8s.elastic.co/node-ingest=true,elasticsearch.k8s.elastic.co/version=8.17.0,statefulset.kubernetes.io/pod-name=quickstart-es-default-0,elasticsearch.k8s.elastic.co/node-transform=true,elasticsearch.k8s.elastic.co/node-data_frozen=true",
+    "ContainerID": "83fae14114e13c0c9cb0b450250122f2cda0004b8365b19e7db76d629d7659b0",
+    "ContainerName": "elasticsearch",
+    "ContainerImage": "docker.elastic.co/elasticsearch/elasticsearch:8.17.0@sha256:2f602552550869fb29b6fd5848c5118d3ef3a2e1d5d45802e3ab9088cb2de8e2",
+    "ParentProcessName": "/usr/bin/bash",
+    "ProcessName": "/usr/bin/nc.openbsd",
+    "HostPPID": 1026220,
+    "HostPID": 1026226,
+    "PPID": 97070,
+    "PID": 97076,
+    "UID": 1000,
+    "Type": "ContainerLog",
+    "Source": "/usr/bin/nc.openbsd -z -v -w5 127.0.0.1 8080",
+    "Operation": "File",
+    "Resource": "/etc/ld.so.cache",
+    "Data": "syscall=SYS_OPENAT fd=-100 flags=O_RDONLY|O_CLOEXEC",
+    "EventData": {
+        "Fd": "-100",
+        "Flags": "O_RDONLY|O_CLOEXEC",
+        "Syscall": "SYS_OPENAT"
+    },
+    "Result": "Passed",
+    "Cwd": "/usr/share/elasticsearch/",
+    "ExecEvent": {
+        "ExecID": "4407607329532159",
+        "ExecutableName": "nc"
+    }
+}
+{
+    "Timestamp": 1781783485,
+    "UpdatedTime": "2026-06-18T11:51:25.144250Z",
+    "ClusterName": "default",
+    "HostName": "runtime-security-lab-worker",
+    "NamespaceName": "elastic-system",
+    "Owner": {
+        "Ref": "StatefulSet",
+        "Name": "quickstart-es-default",
+        "Namespace": "elastic-system"
+    },
+    "PodName": "quickstart-es-default-0",
+    "Labels": "elasticsearch.k8s.elastic.co/node-data_content=true,elasticsearch.k8s.elastic.co/node-ml=true,elasticsearch.k8s.elastic.co/cluster-name=quickstart,elasticsearch.k8s.elastic.co/http-scheme=https,common.k8s.elastic.co/type=elasticsearch,elasticsearch.k8s.elastic.co/node-data_warm=true,elasticsearch.k8s.elastic.co/node-remote_cluster_client=true,elasticsearch.k8s.elastic.co/statefulset-name=quickstart-es-default,apps.kubernetes.io/pod-index=0,elasticsearch.k8s.elastic.co/node-data_cold=true,elasticsearch.k8s.elastic.co/node-data=true,elasticsearch.k8s.elastic.co/node-data_hot=true,elasticsearch.k8s.elastic.co/node-voting_only=false,elasticsearch.k8s.elastic.co/node-master=true,elasticsearch.k8s.elastic.co/node-ingest=true,elasticsearch.k8s.elastic.co/version=8.17.0,statefulset.kubernetes.io/pod-name=quickstart-es-default-0,elasticsearch.k8s.elastic.co/node-transform=true,elasticsearch.k8s.elastic.co/node-data_frozen=true",
+    "ContainerID": "83fae14114e13c0c9cb0b450250122f2cda0004b8365b19e7db76d629d7659b0",
+    "ContainerName": "elasticsearch",
+    "ContainerImage": "docker.elastic.co/elasticsearch/elasticsearch:8.17.0@sha256:2f602552550869fb29b6fd5848c5118d3ef3a2e1d5d45802e3ab9088cb2de8e2",
+    "ParentProcessName": "/usr/bin/bash",
+    "ProcessName": "/usr/bin/nc.openbsd",
+    "HostPPID": 1026220,
+    "HostPID": 1026226,
+    "PPID": 97070,
+    "PID": 97076,
+    "UID": 1000,
+    "Type": "ContainerLog",
+    "Source": "/usr/bin/nc.openbsd -z -v -w5 127.0.0.1 8080",
+    "Operation": "Network",
+    "Resource": "remoteip=127.0.0.1 port=8080 protocol=TCP",
+    "Data": "kprobe=tcp_connect domain=AF_INET",
+    "EventData": {
+        "Domain": "AF_INET",
+        "Kprobe": "tcp_connect",
+        "Port": "8080",
+        "Protocol": "TCP",
+        "Remoteip": "127.0.0.1"
+    },
+    "Result": "Passed",
+    "Cwd": "/usr/share/elasticsearch/",
+    "ExecEvent": {
+        "ExecID": "4407607329532159",
+        "ExecutableName": "nc"
+    }
+}
+{
+    "Timestamp": 1781783485,
+    "UpdatedTime": "2026-06-18T11:51:25.144244Z",
+    "ClusterName": "default",
+    "HostName": "runtime-security-lab-worker",
+    "NamespaceName": "elastic-system",
+    "Owner": {
+        "Ref": "StatefulSet",
+        "Name": "quickstart-es-default",
+        "Namespace": "elastic-system"
+    },
+    "PodName": "quickstart-es-default-0",
+    "Labels": "elasticsearch.k8s.elastic.co/node-data_content=true,elasticsearch.k8s.elastic.co/node-ml=true,elasticsearch.k8s.elastic.co/cluster-name=quickstart,elasticsearch.k8s.elastic.co/http-scheme=https,common.k8s.elastic.co/type=elasticsearch,elasticsearch.k8s.elastic.co/node-data_warm=true,elasticsearch.k8s.elastic.co/node-remote_cluster_client=true,elasticsearch.k8s.elastic.co/statefulset-name=quickstart-es-default,apps.kubernetes.io/pod-index=0,elasticsearch.k8s.elastic.co/node-data_cold=true,elasticsearch.k8s.elastic.co/node-data=true,elasticsearch.k8s.elastic.co/node-data_hot=true,elasticsearch.k8s.elastic.co/node-voting_only=false,elasticsearch.k8s.elastic.co/node-master=true,elasticsearch.k8s.elastic.co/node-ingest=true,elasticsearch.k8s.elastic.co/version=8.17.0,statefulset.kubernetes.io/pod-name=quickstart-es-default-0,elasticsearch.k8s.elastic.co/node-transform=true,elasticsearch.k8s.elastic.co/node-data_frozen=true",
+    "ContainerID": "83fae14114e13c0c9cb0b450250122f2cda0004b8365b19e7db76d629d7659b0",
+    "ContainerName": "elasticsearch",
+    "ContainerImage": "docker.elastic.co/elasticsearch/elasticsearch:8.17.0@sha256:2f602552550869fb29b6fd5848c5118d3ef3a2e1d5d45802e3ab9088cb2de8e2",
+    "ParentProcessName": "/usr/bin/bash",
+    "ProcessName": "/usr/bin/nc.openbsd",
+    "HostPPID": 1026220,
+    "HostPID": 1026226,
+    "PPID": 97070,
+    "PID": 97076,
+    "UID": 1000,
+    "Type": "ContainerLog",
+    "Source": "/usr/bin/nc.openbsd -z -v -w5 127.0.0.1 8080",
+    "Operation": "Network",
+    "Resource": "domain=AF_INET type=SOCK_STREAM|SOCK_NONBLOCK protocol=TCP",
+    "Data": "syscall=SYS_SOCKET",
+    "EventData": {
+        "Domain": "AF_INET",
+        "Protocol": "TCP",
+        "Syscall": "SYS_SOCKET",
+        "Type": "SOCK_STREAM|SOCK_NONBLOCK"
+    },
+    "Result": "Passed",
+    "Cwd": "/usr/share/elasticsearch/",
+    "ExecEvent": {
+        "ExecID": "4407607329532159",
+        "ExecutableName": "nc"
+    }
+}
+{
+    "Timestamp": 1781783485,
+    "UpdatedTime": "2026-06-18T11:51:25.144220Z",
+    "ClusterName": "default",
+    "HostName": "runtime-security-lab-worker",
+    "NamespaceName": "elastic-system",
+    "Owner": {
+        "Ref": "StatefulSet",
+        "Name": "quickstart-es-default",
+        "Namespace": "elastic-system"
+    },
+    "PodName": "quickstart-es-default-0",
+    "Labels": "elasticsearch.k8s.elastic.co/node-data_content=true,elasticsearch.k8s.elastic.co/node-ml=true,elasticsearch.k8s.elastic.co/cluster-name=quickstart,elasticsearch.k8s.elastic.co/http-scheme=https,common.k8s.elastic.co/type=elasticsearch,elasticsearch.k8s.elastic.co/node-data_warm=true,elasticsearch.k8s.elastic.co/node-remote_cluster_client=true,elasticsearch.k8s.elastic.co/statefulset-name=quickstart-es-default,apps.kubernetes.io/pod-index=0,elasticsearch.k8s.elastic.co/node-data_cold=true,elasticsearch.k8s.elastic.co/node-data=true,elasticsearch.k8s.elastic.co/node-data_hot=true,elasticsearch.k8s.elastic.co/node-voting_only=false,elasticsearch.k8s.elastic.co/node-master=true,elasticsearch.k8s.elastic.co/node-ingest=true,elasticsearch.k8s.elastic.co/version=8.17.0,statefulset.kubernetes.io/pod-name=quickstart-es-default-0,elasticsearch.k8s.elastic.co/node-transform=true,elasticsearch.k8s.elastic.co/node-data_frozen=true",
+    "ContainerID": "83fae14114e13c0c9cb0b450250122f2cda0004b8365b19e7db76d629d7659b0",
+    "ContainerName": "elasticsearch",
+    "ContainerImage": "docker.elastic.co/elasticsearch/elasticsearch:8.17.0@sha256:2f602552550869fb29b6fd5848c5118d3ef3a2e1d5d45802e3ab9088cb2de8e2",
+    "ParentProcessName": "/usr/bin/bash",
+    "ProcessName": "/usr/bin/nc.openbsd",
+    "HostPPID": 1026220,
+    "HostPID": 1026226,
+    "PPID": 97070,
+    "PID": 97076,
+    "UID": 1000,
+    "Type": "ContainerLog",
+    "Source": "/usr/bin/nc.openbsd -z -v -w5 127.0.0.1 8080",
+    "Operation": "File",
+    "Resource": "/usr/lib/x86_64-linux-gnu/libnss_files-2.31.so",
+    "Data": "syscall=SYS_OPENAT fd=-100 flags=O_RDONLY|O_CLOEXEC",
+    "EventData": {
+        "Fd": "-100",
+        "Flags": "O_RDONLY|O_CLOEXEC",
+        "Syscall": "SYS_OPENAT"
+    },
+    "Result": "Passed",
+    "Cwd": "/usr/share/elasticsearch/",
+    "ExecEvent": {
+        "ExecID": "4407607329532159",
+        "ExecutableName": "nc"
+    }
+}
+{
+    "Timestamp": 1781783485,
+    "UpdatedTime": "2026-06-18T11:51:25.257112Z",
+    "ClusterName": "default",
+    "HostName": "runtime-security-lab-worker",
+    "PPID": 0,
+    "UID": 0,
+    "Type": "HostLog",
+    "Operation": "NetworkFirewall",
+    "Resource": "EGRESS",
+    "Data": "SourceIP=172.18.0.4 SourcePort=53169 DestinationIP=172.18.0.2 DestinationPort=8472 Protocol=UDP",
+    "EventData": {
+        "DestinationIP": "172.18.0.2",
+        "DestinationPort": "8472",
+        "Protocol": "UDP",
+        "SourceIP": "172.18.0.4",
+        "SourcePort": "53169"
+    },
+    "Result": "Passed",
+    "ExecEvent": {},
+    "UserName": "root"
+}
+{
+    "Timestamp": 1781783485,
+    "UpdatedTime": "2026-06-18T11:51:25.870788Z",
+    "ClusterName": "default",
+    "HostName": "runtime-security-lab-worker",
+    "PPID": 0,
+    "UID": 0,
+    "Type": "HostLog",
+    "Operation": "NetworkFirewall",
+    "Resource": "INGRESS",
+    "Data": "SourceIP=172.18.0.3 SourcePort=46135 DestinationIP=172.18.0.4 DestinationPort=8472 Protocol=UDP",
+    "EventData": {
+        "DestinationIP": "172.18.0.4",
+        "DestinationPort": "8472",
+        "Protocol": "UDP",
+        "SourceIP": "172.18.0.3",
+        "SourcePort": "46135"
+    },
+    "Result": "Passed",
+    "ExecEvent": {},
+    "UserName": "root"
+}
+{
+    "Timestamp": 1781783485,
+    "UpdatedTime": "2026-06-18T11:51:25.870610Z",
+    "ClusterName": "default",
+    "HostName": "runtime-security-lab-worker2",
+    "PPID": 0,
+    "UID": 0,
+    "Type": "HostLog",
+    "Operation": "NetworkFirewall",
+    "Resource": "EGRESS",
+    "Data": "SourceIP=172.18.0.3 SourcePort=46135 DestinationIP=172.18.0.4 DestinationPort=8472 Protocol=UDP",
+    "EventData": {
+        "DestinationIP": "172.18.0.4",
+        "DestinationPort": "8472",
+        "Protocol": "UDP",
+        "SourceIP": "172.18.0.3",
+        "SourcePort": "46135"
+    },
+    "Result": "Passed",
+    "ExecEvent": {},
+    "UserName": "root"
+}
+{
+    "Timestamp": 1781783485,
+    "UpdatedTime": "2026-06-18T11:51:25.870682Z",
+    "ClusterName": "default",
+    "HostName": "runtime-security-lab-worker2",
+    "PPID": 0,
+    "UID": 0,
+    "Type": "HostLog",
+    "Operation": "NetworkFirewall",
+    "Resource": "INGRESS",
+    "Data": "SourceIP=172.18.0.4 SourcePort=46505 DestinationIP=172.18.0.3 DestinationPort=8472 Protocol=UDP",
+    "EventData": {
+        "DestinationIP": "172.18.0.3",
+        "DestinationPort": "8472",
+        "Protocol": "UDP",
+        "SourceIP": "172.18.0.4",
+        "SourcePort": "46505"
+    },
+    "Result": "Passed",
+    "ExecEvent": {},
+    "UserName": "root"
+}

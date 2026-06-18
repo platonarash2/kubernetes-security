@@ -21,6 +21,9 @@ Use **PowerShell as Administrator**.
 
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
+Applicera labbens konfig igen:
+kubectl apply -k .\lab\overlays\kind
+
 ```powershell
 .\scripts\windows\00-install-tools.ps1
 .\scripts\windows\01-create-kind-cluster.ps1

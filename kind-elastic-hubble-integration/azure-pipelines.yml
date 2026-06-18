@@ -1,0 +1,31 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  name: SelfHosted-Windows-Kind
+
+stages:
+  - stage: InstallElastic
+    jobs:
+      - job: Install
+        steps:
+          - checkout: self
+          - powershell: .\scripts\windows\01-install-elastic.ps1
+
+  - stage: EnableHubble
+    dependsOn: InstallElastic
+    jobs:
+      - job: Hubble
+        steps:
+          - checkout: self
+          - powershell: .\scripts\windows\02-enable-hubble.ps1
+
+  - stage: InstallFluentBit
+    dependsOn: EnableHubble
+    jobs:
+      - job: FluentBit
+        steps:
+          - checkout: self
+          - powershell: .\scripts\windows\03-install-fluentbit.ps1

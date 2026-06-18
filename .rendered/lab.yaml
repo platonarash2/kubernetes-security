@@ -114,6 +114,7 @@ spec:
         - -c
         - |
           while true; do
+            echo hello world
             sleep 3600
           done
         image: nicolaka/netshoot:latest
@@ -316,13 +317,67 @@ spec:
                 type: RuntimeDefault
   validationFailureAction: Enforce
 ---
+apiVersion: operator.kubearmor.com/v1
+kind: KubeArmorConfig
+metadata:
+  labels:
+    app.kubernetes.io/created-by: kubearmoroperator
+    app.kubernetes.io/instance: kubearmorconfig-sample
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: kubearmorconfig
+    app.kubernetes.io/part-of: kubearmoroperator
+  name: kubearmorconfig-default
+  namespace: kubearmor
+spec:
+  alertThrottling: true
+  defaultCapabilitiesPosture: audit
+  defaultFilePosture: audit
+  defaultNetworkPosture: audit
+  defaultVisibility: process,network,files
+  enableStdOutAlerts: true
+  enableStdOutLogs: true
+  enableStdOutMsgs: true
+  kubearmorControllerImage:
+    image: kubearmor/kubearmor-controller
+    imagePullPolicy: Always
+  kubearmorImage:
+    image: kubearmor/kubearmor:stable
+    imagePullPolicy: Always
+  kubearmorInitImage:
+    image: kubearmor/kubearmor-init:stable
+    imagePullPolicy: Always
+  kubearmorRelayImage:
+    image: kubearmor/kubearmor-relay-server
+    imagePullPolicy: Always
+  matchArgs: true
+  maxAlertPerSec: 10
+  seccompEnabled: false
+  throttleSec: 30
+---
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: block-shells
+  namespace: attacker
+spec:
+  action: Block
+  process:
+    matchPaths:
+    - path: /bin/bash
+    - path: /bin/sh
+    - path: /usr/bin/bash
+    - path: /usr/bin/sh
+  selector:
+    matchLabels:
+      app: attacker
+---
 apiVersion: security.kubearmor.com/v1
 kind: KubeArmorPolicy
 metadata:
   name: monitor-serviceaccount-token-read
   namespace: attacker
 spec:
-  action: Audit
+  action: Block
   file:
     matchPaths:
     - path: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -352,7 +407,7 @@ metadata:
   name: payments-runtime-policy
   namespace: payments
 spec:
-  action: Audit
+  action: Block
   capabilities:
     matchCapabilities:
     - capability: sys_admin
@@ -365,6 +420,7 @@ spec:
   process:
     matchPaths:
     - path: /bin/sh
+    - path: /bin/busybox
     - path: /bin/bash
     - path: /usr/bin/wget
     - path: /usr/bin/curl

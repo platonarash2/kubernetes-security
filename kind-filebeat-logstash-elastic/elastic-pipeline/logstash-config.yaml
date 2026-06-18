@@ -1,0 +1,133 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: logstash-pipeline
+  namespace: observability
+data:
+  logstash.yml: |
+    http.host: "0.0.0.0"
+    pipeline.ecs_compatibility: disabled
+
+  runtime-security.conf: |
+    input {
+      beats {
+        port => 5044
+      }
+    }
+
+    filter {
+      if [kubernetes][namespace] == "tetragon" or [kubernetes][namespace_name] == "tetragon" {
+        mutate { add_field => { "[event][source]" => "tetragon" } }
+      } else if [kubernetes][namespace] == "kubearmor" or [kubernetes][namespace_name] == "kubearmor" {
+        mutate { add_field => { "[event][source]" => "kubearmor" } }
+      } else if [kubernetes][namespace] == "kube-system" or [kubernetes][namespace_name] == "kube-system" {
+        mutate { add_field => { "[event][source]" => "cilium" } }
+      } else {
+        mutate { add_field => { "[event][source]" => "unknown" } }
+      }
+
+      if [message] =~ "^\s*\{" {
+        json {
+          source => "message"
+          target => "runtime"
+          skip_on_invalid_json => true
+        }
+      }
+
+      if [event][source] == "tetragon" {
+        if [runtime][process_exec] {
+          mutate {
+            add_field => {
+              "[event][type]" => "process_exec"
+              "[event][action]" => "observed"
+            }
+          }
+          if [runtime][process_exec][process][binary] {
+            mutate { add_field => { "[process][executable]" => "%{[runtime][process_exec][process][binary]}" } }
+          }
+          if [runtime][process_exec][process][arguments] {
+            mutate { add_field => { "[process][command_line]" => "%{[runtime][process_exec][process][arguments]}" } }
+          }
+          if [runtime][process_exec][parent][binary] {
+            mutate { add_field => { "[process][parent][executable]" => "%{[runtime][process_exec][parent][binary]}" } }
+          }
+          if [runtime][process_exec][process][pod][namespace] {
+            mutate { add_field => { "[runtime_kubernetes][namespace]" => "%{[runtime][process_exec][process][pod][namespace]}" } }
+          }
+          if [runtime][process_exec][process][pod][name] {
+            mutate { add_field => { "[runtime_kubernetes][pod][name]" => "%{[runtime][process_exec][process][pod][name]}" } }
+          }
+        }
+
+        if [runtime][process_kprobe] {
+          mutate {
+            add_field => {
+              "[event][type]" => "kprobe"
+              "[event][action]" => "observed"
+            }
+          }
+          if [runtime][process_kprobe][function_name] {
+            mutate { add_field => { "[event][code]" => "%{[runtime][process_kprobe][function_name]}" } }
+          }
+          if [runtime][process_kprobe][process][binary] {
+            mutate { add_field => { "[process][executable]" => "%{[runtime][process_kprobe][process][binary]}" } }
+          }
+          if [runtime][process_kprobe][process][arguments] {
+            mutate { add_field => { "[process][command_line]" => "%{[runtime][process_kprobe][process][arguments]}" } }
+          }
+          if [runtime][process_kprobe][process][pod][namespace] {
+            mutate { add_field => { "[runtime_kubernetes][namespace]" => "%{[runtime][process_kprobe][process][pod][namespace]}" } }
+          }
+          if [runtime][process_kprobe][process][pod][name] {
+            mutate { add_field => { "[runtime_kubernetes][pod][name]" => "%{[runtime][process_kprobe][process][pod][name]}" } }
+          }
+        }
+      }
+
+      if [event][source] == "kubearmor" {
+        mutate { add_field => { "[event][type]" => "policy_event" } }
+        if [runtime][Action] {
+          mutate { add_field => { "[event][action]" => "%{[runtime][Action]}" } }
+        }
+        if [runtime][PolicyName] {
+          mutate { add_field => { "[policy][name]" => "%{[runtime][PolicyName]}" } }
+        }
+        if [runtime][PodName] {
+          mutate { add_field => { "[runtime_kubernetes][pod][name]" => "%{[runtime][PodName]}" } }
+        }
+        if [runtime][NamespaceName] {
+          mutate { add_field => { "[runtime_kubernetes][namespace]" => "%{[runtime][NamespaceName]}" } }
+        }
+        if [runtime][ProcessName] {
+          mutate { add_field => { "[process][executable]" => "%{[runtime][ProcessName]}" } }
+        }
+        if [runtime][Resource] {
+          mutate { add_field => { "[file][path]" => "%{[runtime][Resource]}" } }
+        }
+      }
+
+      if [message] =~ "serviceaccount/token" {
+        mutate {
+          add_field => {
+            "[event][type]" => "file_access"
+            "[file][path]" => "/var/run/secrets/kubernetes.io/serviceaccount/token"
+          }
+        }
+      }
+
+      if ![event][action] {
+        mutate { add_field => { "[event][action]" => "observed" } }
+      }
+    }
+
+    output {
+      elasticsearch {
+        hosts => ["https://quickstart-es-http.elastic-system.svc:9200"]
+        user => "elastic"
+        password => "${ELASTIC_PASSWORD}"
+        ssl_enabled => true
+        ssl_verification_mode => "none"
+        index => "runtime-security-%{+YYYY.MM.dd}"
+      }
+      stdout { codec => rubydebug }
+    }

@@ -1,0 +1,16 @@
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: block-shells
+  namespace: attacker
+spec:
+  selector:
+    matchLabels:
+      app: attacker
+  process:
+    matchPaths:
+    - path: /bin/bash
+    - path: /bin/sh
+    - path: /usr/bin/bash
+    - path: /usr/bin/sh
+  action: Block

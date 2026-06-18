@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubearmor-log-exporter
+  namespace: kubearmor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubearmor-log-exporter
+  template:
+    metadata:
+      labels:
+        app: kubearmor-log-exporter
+    spec:
+      serviceAccountName: kubearmor
+      containers:
+      - name: karmor-logs
+        image: kubearmor/karmor:latest
+        args:
+        - logs
+        - --json
