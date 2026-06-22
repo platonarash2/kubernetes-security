@@ -1,0 +1,83 @@
+FROM runtime-security-2026.06.18
+| WHERE policy.name == "payments-runtime-policy" 
+| MV_EXPAND event.type
+| WHERE event.type == "policy_event"  and event.source == "kubearmor"
+| KEEP 
+@timestamp,
+event.type, 
+runtime.PolicyName, 
+event.action, 
+runtime.Resource, 
+runtime.ExecEvent.ExecutableName,
+runtime.ParentProcessName, 
+runtime.EventData.Syscall, 
+runtime.PodName, 
+runtime.UID, 
+runtime.PID, 
+runtime.PPID, 
+runtime.HostPID, 
+runtime.HostPPID, 
+runtime.PolicyName
+| LIMIT 10
+
+
+*** DISTINCT ***
+FROM runtime-security-2026.06.18
+| MV_EXPAND event.type
+| STATS count = COUNT(*) BY event.type
+| SORT count DESC
+
+Result: policy_event, process_exec, -, file_access
+
+
+**** kubearmor + tetragon ****
+
+
+
+FROM runtime-security-2026.06.18
+| WHERE @timestamp >= "2026-06-18T12:20:20.576Z"
+  AND @timestamp <= "2026-06-18T12:22:20.576Z"
+  AND (
+    event.source == "tetragon"
+    OR (
+      event.source == "kubearmor"
+      AND policy.name == "payments-runtime-policy"
+    )
+  )
+| KEEP
+  @timestamp,
+  event.source,
+  event.type,
+  event.action,
+  policy.name,
+  runtime.PodName,
+  runtime.Resource,
+  runtime.ExecEvent.ExecutableName,
+  runtime.EventData.Syscall,
+  runtime_kubernetes.namespace,
+  runtime_kubernetes.pod.name,
+  process.executable,
+  process.command_line
+| SORT @timestamp ASC
+
+
+
+*************
+
+FROM runtime-security-2026.06.18
+| STATS count = COUNT(*) BY event.source, kubernetes.namespace
+| SORT count DESC
+
+
+FROM runtime-security-2026.06.18
+| STATS count = COUNT(*) BY event.source, runtime.process_exec.process.pod.namespace
+| SORT count DESC
+
+
+******************
+
+
+
+
+kubectl -n kubearmor logs deploy/kubearmor-relay -f | Select-String '"NamespaceName":"payments"'
+

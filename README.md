@@ -32,6 +32,43 @@ kubectl apply -k .\lab\overlays\kind
 .\scripts\windows\04-run-tests.ps1
 ```
 
+Then install Elastic and Hubble
+..\kind-elastic-hubble-integration\README.md
+
+
+Then install Filebeat and Logstash
+..\kind-filebeat-logstash-elastic\README.md
+
+Then trigger tests:
+C:\Work\arashms\kind-runtime-security-lab\scripts\windows\04-run-tests.ps1
+
+Watch in Elastic:
+
+FROM runtime-security-*
+| WHERE policy.name == "payments-runtime-policy" 
+| MV_EXPAND event.type
+| WHERE event.type == "policy_event"  and event.source == "kubearmor"
+| KEEP 
+@timestamp,
+event.type, 
+runtime.PolicyName, 
+event.action, 
+runtime.Resource, 
+runtime.ExecEvent.ExecutableName,
+runtime.ParentProcessName, 
+runtime.EventData.Syscall, 
+runtime.PodName, 
+runtime.UID, 
+runtime.PID, 
+runtime.PPID, 
+runtime.HostPID, 
+runtime.HostPPID, 
+runtime.PolicyName
+| LIMIT 10
+
+
+
+
 Alternative using WSL2/Linux shell:
 
 ```bash
